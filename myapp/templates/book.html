@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-5">
+            <img src="{{ book.image }}" class="img-fluid rounded shadow" style="max-width: 350px;">
+        </div>
+        <div class="col-md-7">
+            <h1>{{ book.title }}</h1>
+            <p class="text-muted">Автор: {{ book.author }}</p>
+            <h3 class="text-primary">{{ book.price }} ₽</h3>
+            <p class="mt-4">{{ book.description }}</p>
+            <button class="btn btn-success btn-lg mt-3">Купить</button>
+            <a href="/" class="btn btn-secondary btn-lg mt-3">Назад</a>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="row" id="reviews-app" data-book-id="{{ book.id }}" data-csrf="{{ csrf_token }}">
+        <div class="col-md-8">
+            <h3>Отзывы</h3>
+
+            {% if user.is_authenticated %}
+            <div class="mb-4">
+                <textarea id="reviewText" class="form-control" rows="3" placeholder="Напишите ваш отзыв..."></textarea>
+                <button id="sendReviewBtn" class="btn btn-primary mt-2">Отправить отзыв</button>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                Чтобы оставить отзыв, <a href="{% url 'login' %}">войдите в аккаунт</a>.
+            </div>
+            {% endif %}
+
+            <div id="reviewsList">
+                <p class="text-muted">Загрузка отзывов...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/book.js' %}"></script>
+{% endblock %}

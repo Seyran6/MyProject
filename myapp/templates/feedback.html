@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Обратная связь{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow p-4">
+            <h2 class="text-center mb-4">Обратная связь</h2>
+
+            <form id="feedbackForm" novalidate method="post" action="{% url 'serv' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Имя</label>
+                    <input type="text" id="firstName" class="form-control" name="firstName" required>
+                    <div class="invalid-feedback">
+                        Имя должно начинаться с заглавной буквы и содержать только буквы.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Фамилия</label>
+                    <input type="text" id="lastName" class="form-control" name="lastName" required>
+                    <div class="invalid-feedback">
+                        Фамилия должна начинаться с заглавной буквы и содержать только буквы.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Возраст</label>
+                    <input type="number" id="age" class="form-control" name="age" required>
+                    <div class="invalid-feedback">
+                        Возраст должен быть от 10 до 100.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Номер телефона</label>
+                    <input type="text" id="phone" class="form-control" name="phone" required>
+                    <div class="invalid-feedback">
+                        Введите номер полностью.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" name="email" required>
+                    <div class="invalid-feedback">
+                        Введите корректный email (пример: example@mail.ru)
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Сообщение</label>
+                    <textarea class="form-control" rows="4" name="message" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Отправить
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/feedback.js' %}"></script>
+{% endblock %}

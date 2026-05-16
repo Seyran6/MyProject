@@ -25,9 +25,16 @@ jobs:
     - name: Build and Run Docker Containers
       run: docker compose up -d
 
+    - name: Sleep for 10 seconds
+      run: sleep 10
+
     - name: Run Django Tests
       run: |
         docker compose exec -T web python manage.py test
+
+    - name: Show Docker logs on failure
+      if: failure()
+      run: docker compose logs
 
     - name: Shutdown Docker
       if: always()

@@ -19,7 +19,7 @@ jobs:
         echo "DB_HOST=db" >> "$ENV_FILE"
         echo "DB_PORT=5432" >> "$ENV_FILE"
         echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> "$ENV_FILE"
-        echo "DEBUG=False" >> "$ENV_FILE"
+        echo "DEBUG=True" >> "$ENV_FILE"
         echo "VK_TOKEN=${{ secrets.VK_TOKEN }}" >> "$ENV_FILE"
 
     - name: Build and Run Docker Containers

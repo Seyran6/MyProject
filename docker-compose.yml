@@ -10,9 +10,9 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
+      - static:/app/static
     ports:
       - "8000:8000"
     env_file:
@@ -20,5 +20,18 @@ services:
     depends_on:
       - db
 
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt/:/etc/letsencrypt/
+      - static:/app/static
+    depends_on:
+      - web
+
 volumes:
   postgres_data:
+  static:
